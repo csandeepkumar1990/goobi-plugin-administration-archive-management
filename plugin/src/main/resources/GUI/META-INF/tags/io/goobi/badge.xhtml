@@ -12,6 +12,8 @@
         <span class="badge #{styleclassname} #{item.valid ? '' : 'validation-error'}">
             
             <h:commandLink
+                class="#{item.name}-badgetag"
+                onclick="personBadgeClick('#{item.name}');"
                 action="#{item.addValue}"
                 rendered="#{item.repeatable and item.showField}">
                 <i class="fa fa-plus-circle margin-right-5"/>
@@ -26,6 +28,8 @@
             </h:commandLink>
             
             <h:commandLink
+                class="#{item.name}-badgetag"
+                onclick="personBadgeClick('#{item.name}');"
                 rendered="#{!item.repeatable or (item.repeatable and !item.showField)}">
                 <ui:fragment rendered="#{item.repeatable}">
                     <i class="fa fa-plus-circle margin-right-5"/>

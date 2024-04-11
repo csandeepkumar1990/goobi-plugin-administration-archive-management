@@ -29,10 +29,12 @@
             <h:selectOneMenu
                 id="#{fieldid}"
                 forceId="true"
-                styleClass="form-control #{item.valid ? '' : 'validation-error'}"
+                styleClass="form-control #{item.valid ? '' : 'validation-error'} #{fieldclass}"
                 value="#{fieldvalue}"
                 required="false"
-                readonly="false">
+                readonly="false"
+                onchange="handleRoleChange(this, '#{item.name}', '#{fieldIndex}');"
+                >
                 <f:selectItem
                     itemValue=""
                     itemLabel="#{msgs.bitteAuswaehlen}" />

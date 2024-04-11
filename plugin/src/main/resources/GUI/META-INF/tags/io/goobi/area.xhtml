@@ -44,20 +44,38 @@
 
                     <ui:fragment rendered="#{item.showField and item.visible}">
 
-                        <x:dataList value="#{item.values}" var="field">
+                        <x:dataList value="#{item.values}" rowIndexVar="fieldIndex" var="field">
 	                        <ui:fragment rendered="#{item.fieldType=='input'}">
+                                <x:dataList
+                                    var="subItem"
+                                    value="#{itemlist}"
+                                    rowIndexVar="subFieldIndex"
+                                    rendered="#{showDetails}">
+                                        <!-- <x:dataList value="#{subItem.values}" rowIndexVar="subFieldIndex" var="subField"> -->
+                                            <ui:fragment rendered="#{item.name=='person' and subItem.name == 'role'}">
+                                                <goobiio:dropdown
+                                                    fieldIndex="#{subFieldIndex}"
+                                                    fieldclass="role-select"
+                                                    fieldid="#{subItem.name}dropdown"
+                                                    fieldname="#{msgs['plugin_administration_archive_'.concat(subItem.name)]}"
+                                                    fieldvalue="#{subItem.values[fieldIndex].value}"
+                                                    selectItems="#{subItem.values[fieldIndex].selectItemList}" />
+                                            </ui:fragment>
+                                        <!-- </x:dataList> -->
+                                </x:dataList>
 	                            <goobiio:input
+                                    fieldIndex="#{fieldIndex}"
 	                                fieldid="#{item.name}input"
 	                                fieldname="#{msgs['plugin_administration_archive_'.concat(item.name)]}"
 	                                fieldvalue="#{field.value}" />
-	                        </ui:fragment>
+                            </ui:fragment>
 	                        <ui:fragment rendered="#{item.fieldType=='textarea'}">
 	                            <goobiio:textarea
 	                                fieldid="#{item.name}textarea"
 	                                fieldname="#{msgs['plugin_administration_archive_'.concat(item.name)]}"
 	                                fieldvalue="#{field.value}" />
 	                        </ui:fragment>
-	                        <ui:fragment rendered="#{item.fieldType=='dropdown' or item.fieldType=='vocabulary'}">
+	                        <ui:fragment rendered="#{item.name != 'role' and (item.fieldType=='dropdown' or item.fieldType=='vocabulary')}">
 	                            <goobiio:dropdown
 	                                fieldid="#{item.name}dropdown"
 	                                fieldname="#{msgs['plugin_administration_archive_'.concat(item.name)]}"

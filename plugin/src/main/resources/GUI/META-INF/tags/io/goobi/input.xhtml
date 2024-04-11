@@ -7,6 +7,21 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:x="http://myfaces.apache.org/tomahawk">
+<h:head>
+    <!-- <script src="template/js/jquery.min.js"></script>
+    <script>
+
+        function myFunction() {
+            console.log('myFunction =>>')
+            console.log('myFunction document =>>', $(document))
+        }
+
+        $(document).ready(function(){
+        // Your jQuery code here
+        console.log('document ready')
+        });
+    </script> -->
+</h:head>
 <h:body>
     <ui:composition>
         
@@ -14,6 +29,29 @@
 	        <h:outputLabel
 	            for="#{fieldid}"
 	            value="#{fieldname}" />
+                <h:panelGroup layout="block" rendered="#{fieldname eq 'Person'}">
+                    <button
+                    type="button"
+                    rendered="#{fieldname eq 'Person'}"
+                    class="btn change-icon gndIndexTrigger"
+                    title="#{msgs.search}"
+                    data-fieldIndex="#{fieldIndex}"
+                    onclick="myFunction(this); return false;">
+        
+        
+                    <img
+                        class="toggle"
+                        style="width: 16px;"
+                        alt="GND"
+                        src="template/img/Icons_GND_grey.png" />
+                    <img
+                        class="toggle"
+                        style="width: 16px;"
+                        alt="GND"
+                        src="template/img/Icons_GND_color.png" />
+                </button>
+
+                </h:panelGroup>
 		</div>
      
         <h:commandLink styleClass="metadata-row-area-content close-field pull-right" action="#{item.deleteValue(field)}">
@@ -22,13 +60,13 @@
                 execute="@this"
                 render=":#{ajaxid} :hierarchy" />
         </h:commandLink>
-  
+        <!-- <h:commandButton rendered="#{fieldname eq 'Person'}" class="#{fieldname}" onclick="myFunction(); return false;" value="Search in GND" type="button" /> -->
         <div class="metadata-row-area-content metadata-row-area-content-white">
             
             <h:inputText
                 id="#{fieldid}"
                 forceId="true"
-                styleClass="form-control #{item.valid ? '' : 'validation-error'}"
+                styleClass="form-control #{item.valid ? '' : 'validation-error'} #{item.name}-inp"
                 value="#{fieldvalue}"
                 required="false"
                 readonly="false">
@@ -41,6 +79,9 @@
             <h:outputText styleClass="help-inline font-danger" rendered="#{!item.valid}" value="#{msgs[item.validationError]}"/>
             
         </div>
+        <!-- <div>
+            
+        </div> -->
     </ui:composition>
 </h:body>
 </html>
